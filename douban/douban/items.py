@@ -15,6 +15,7 @@ class DoubanItem(scrapy.Item):
 
 
 class Movies(scrapy.Item):
+    subject_id = scrapy.Field()  # 影片id
     name = scrapy.Field()  # 影片名
     year = scrapy.Field()  # 年份
     director = scrapy.Field()  # 导演

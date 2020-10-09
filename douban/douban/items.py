@@ -42,3 +42,5 @@ class Movies(scrapy.Item):
     review = scrapy.Field()  # 影评数
     discuss = scrapy.Field()  # 小组讨论数
     question = scrapy.Field()  # 问题数
+    create_time = scrapy.Field()  # 数据添加时间
+    update_time = scrapy.Field()  # 数据更新时间

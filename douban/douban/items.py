@@ -45,3 +45,4 @@ class Movies(scrapy.Item):
     question = scrapy.Field()  # 问题数
     create_time = scrapy.Field()  # 数据添加时间
     update_time = scrapy.Field()  # 数据更新时间
+    subject_url = scrapy.Field()  # 数据url

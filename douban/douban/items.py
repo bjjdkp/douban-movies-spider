@@ -38,6 +38,7 @@ class Movies(scrapy.Item):
     synopsis = scrapy.Field()  # 剧情简介
     seen = scrapy.Field()  # 看过人数
     wanna_see = scrapy.Field()  # 想看人数
+    tag = scrapy.Field()  # 标签
     brief_review = scrapy.Field()  # 短评数
     topic = scrapy.Field()  # 话题数
     review = scrapy.Field()  # 影评数

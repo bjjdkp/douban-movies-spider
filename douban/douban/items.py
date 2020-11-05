@@ -14,7 +14,7 @@ class DoubanItem(scrapy.Item):
     pass
 
 
-class Movies(scrapy.Item):
+class Movie(scrapy.Item):
     subject_id = scrapy.Field()  # 影片id
     poster = scrapy.Field()  # 海报
     name = scrapy.Field()  # 影片名
@@ -48,3 +48,18 @@ class Movies(scrapy.Item):
     create_time = scrapy.Field()  # 数据添加时间
     update_time = scrapy.Field()  # 数据更新时间
     subject_url = scrapy.Field()  # 数据url
+
+
+class Celebrity(scrapy.Item):
+    celebrity_id = scrapy.Field()  # 演员id
+    celebrity_name = scrapy.Field()  # 演员姓名
+
+
+class Category(scrapy.Item):
+    category_id = scrapy.Field()  # 类型id
+    category_name = scrapy.Field()  # 类型名
+
+
+class Tag(scrapy.Item):
+    tag_id = scrapy.Field()  # 标签id
+    tag_name = scrapy.Field()  # 标签名

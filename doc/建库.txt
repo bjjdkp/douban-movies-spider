@@ -1,0 +1,37 @@
+CREATE DATABASE IF NOT EXISTS DouBan;
+
+USE DouBan;
+
+CREATE TABLE `movies` (
+    `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `subject_id` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+    `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `year` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '0',
+    `director` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `writer` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `cast` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `category` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `region` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `language` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `release_date` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `duration` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `other_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',®
+    `rating` DECIMAL(3,1) UNSIGNED NOT NULL DEFAULT '0.0',
+    `rating_number` INT(11) UNSIGNED NOT NULL DEFAULT 0,
+    `rating_5` FLOAT(24) UNSIGNED NOT NULL DEFAULT 0.0,
+    `rating_4` FLOAT(24) UNSIGNED NOT NULL DEFAULT 0.0,
+    `rating_3` FLOAT(24) UNSIGNED NOT NULL DEFAULT 0.0,
+    `rating_2` FLOAT(24) UNSIGNED NOT NULL DEFAULT 0.0,
+    `rating_1` FLOAT(24) UNSIGNED NOT NULL DEFAULT 0.0,
+    `synopsis` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+    `seen` INT(11) UNSIGNED NOT NULL DEFAULT 0,
+    `wanna_see` INT(11) UNSIGNED NOT NULL DEFAULT 0,
+    `brief_review` INT(11) UNSIGNED NOT NULL DEFAULT 0,
+    `topic` INT(11) UNSIGNED NOT NULL DEFAULT 0,
+    `review` INT(11) UNSIGNED NOT NULL DEFAULT 0,
+    `discuss` INT(11) UNSIGNED NOT NULL DEFAULT 0,
+    `question` INT(11) UNSIGNED NOT NULL DEFAULT 
+    `created_at` timestamp NOT NULL,
+    `updated_at` timestamp NOT NULL,
+     PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

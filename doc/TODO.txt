@@ -1,0 +1,9 @@
+豆瓣电影数据库
+
+	电影 movies
+		添加字段解析
+	职员	celebrity
+		添加字段解析
+	类型	category
+	标签 tag
+

@@ -2,7 +2,7 @@
 
 import re
 import scrapy
-from douban.items import Movies
+from douban.items import Movie, Celebrity
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
@@ -27,7 +27,6 @@ class MoviesSpider(CrawlSpider):
         Rule(LinkExtractor(allow=r'movie.douban.com/celebrity/\d+/movies'), follow=True),
         Rule(LinkExtractor(allow=r'movie.douban.com/celebrity/\d+/partners'), follow=True),
         Rule(LinkExtractor(allow=r'movie.douban.com/subject/\d+/celebrities'), follow=True),
-
     )
 
     # def start_requests(self):
@@ -60,68 +59,69 @@ class MoviesSpider(CrawlSpider):
                 return "null"
 
     def parse_movie(self, response):
-        print("parse_item~~~~~~~~~")
-        detail_info = Movies()
+        movie_info = Movie()
+        celebrity_info = Celebrity()
 
-        detail_info["subject_id"] = re.search(r"subject/(\d+)", response.url).group()
-        detail_info["poster"] = response.xpath('/html[1]/body[1]/div[3]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]').extract()
+        movie_info["subject_id"] = re.search(r"subject/(\d+)", response.url).group()
+        movie_info["poster"] = response.xpath('//a[@class="nbgnbg"]/img/@src').extract()
+        movie_info["name"] = response.xpath('//h1/span[1]/text()').extract()
+        movie_info["year"] = response.xpath('//h1/span[2]/text()').extract().strip("()")
+        movie_info["director"] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
+        movie_info[""] = response.xpath('').extract()
 
 
-        # # 职位名称
-        # detail_info["job_name"] = self.is_data_exist(response.xpath('//title/text()').extract()).split("_")[0][1:]
-        # # 职位月薪(元/月)
-        # detail_info["salary"] = self.is_data_exist(response.xpath('//div[@class="terminalpage-left"]/ul/li[1]/strong/text()').extract()).strip()[:-3]
-        # # 工作地点
-        # detail_info["job_site"] = self.is_data_exist(response.xpath('//div[@class="terminalpage-left"]/ul/li[2]/strong/a/text()').extract())
-        # # 发布日期
-        # detail_info["launch_time"] = self.is_data_exist(response.xpath('//div[@class="terminalpage-left"]/ul/li[3]/strong/span/text()').extract())
-        # # 工作性质
-        # detail_info["job_nature"] = self.is_data_exist(response.xpath('//div[@class="terminalpage-left"]/ul/li[4]/strong/text()').extract())
-        # # 工作经验
-        # detail_info["experience"] = self.is_data_exist(response.xpath('//div[@class="terminalpage-left"]/ul/li[5]/strong/text()').extract())
-        # # 最低学历
-        # detail_info["education"] = self.is_data_exist(response.xpath('//div[@class="terminalpage-left"]/ul/li[6]/strong/text()').extract())
-        # # 招聘人数
-        # detail_info["requirements"] = self.is_data_exist(response.xpath('//div[@class="terminalpage-left"]/ul/li[7]/strong/text()').extract()).strip()[:-1]
-        # # 职位类别
-        # detail_info["job_type"] = self.is_data_exist(response.xpath('//div[@class="terminalpage-left"]/ul/li[8]/strong/a/text()').extract())
-        # # 职位描述
-        # job_desc_all = "".join(response.xpath('//div[@class="terminalpage-main clearfix"]/div/div[1]//text()').extract())
-        # job_desc = re.sub(r"\r|\n| ", "", job_desc_all)
-        # detail_info["job_desc"] = job_desc
-        # # 公司介绍
-        # # detail_info["company_info"] = response.xpath('//div[@class="terminalpage-main clearfix"]/div/div[2]/p/text()').extract()
-        # # 公司名称
-        # detail_info["company_name"] = self.is_data_exist(response.xpath('//div[@class="company-box"]/p/a/text()').extract())
 
-        # node_list = response.xpath('//div[@class="company-box"]/ul/li')
-        # if len(node_list) == 4:
-        #     for node in node_list:
-        #         # 公司规模
-        #         detail_info["company_size"] = self.is_data_exist(node.xpath('//div[@class="company-box"]/ul/li[1]/strong/text()').extract())
-        #         # 公司性质
-        #         detail_info["company_nature"] = self.is_data_exist(node.xpath('//div[@class="company-box"]/ul/li[2]/strong/text()').extract())
-        #         # 公司行业
-        #         detail_info["company_trade"] = self.is_data_exist(node.xpath('//div[@class="company-box"]/ul/li[3]/strong/a/text()').extract())
-        #         # 公司地址
-        #         detail_info["company_address"] = self.is_data_exist(node.xpath('//div[@class="company-box"]/ul/li[4]/strong/text()').extract()).strip()
-        # elif len(node_list) == 5:
-        #     for node in node_list:
-        #         # 公司规模
-        #         detail_info["company_size"] = self.is_data_exist(node.xpath('//div[@class="company-box"]/ul/li[1]/strong/text()').extract())
-        #         # 公司性质
-        #         detail_info["company_nature"] = self.is_data_exist(node.xpath('//div[@class="company-box"]/ul/li[2]/strong/text()').extract())
-        #         # 公司行业
-        #         detail_info["company_trade"] = self.is_data_exist(node.xpath('//div[@class="company-box"]/ul/li[3]/strong/a/text()').extract())
-        #         # 公司地址
-        #         detail_info["company_address"] = self.is_data_exist(node.xpath('//div[@class="company-box"]/ul/li[5]/strong/text()').extract()).strip()
+        director = scrapy.Field()  # 导演
+        writer = scrapy.Field()  # 编剧
+        cast = scrapy.Field()  # 主演
+        category = scrapy.Field()  # 类型
+        region = scrapy.Field()  # 制片国家/地区
+        language = scrapy.Field()  # 语言
+        release_date = scrapy.Field()  # 上映日期
+        duration = scrapy.Field()  # 片长
+        other_name = scrapy.Field()  # 又名
+        rating = scrapy.Field()  # 评分
+        rating_number = scrapy.Field()  # 评分人数
+        rating_5 = scrapy.Field()  # 5星比例
+        rating_4 = scrapy.Field()  # 4星比例
+        rating_3 = scrapy.Field()  # 3星比例
+        rating_2 = scrapy.Field()  # 2星比例
+        rating_1 = scrapy.Field()  # 1星比例
+        synopsis = scrapy.Field()  # 剧情简介
+        seeing = scrapy.Field()  # 在看人数
+        seen = scrapy.Field()  # 看过人数
+        wanna_see = scrapy.Field()  # 想看人数
+        tag = scrapy.Field()  # 标签
+        brief_review = scrapy.Field()  # 短评数
+        topic = scrapy.Field()  # 话题数
+        review = scrapy.Field()  # 影评数
+        discuss = scrapy.Field()  # 小组讨论数
+        question = scrapy.Field()  # 问题数
+        create_time = scrapy.Field()  # 数据添加时间
+        update_time = scrapy.Field()  # 数据更新时间
+        subject_url = scrapy.Field()  # 数据url
+
+        celebrity_id = scrapy.Field()  # 演员id
+        celebrity_name = scrapy.Field()  # 演员姓名
+
+
 
         # 页面url
-        detail_info["data_url"] = response.url
+        movie_info["data_url"] = response.url
         # 页面源码
-        # detail_info["data_html"] = response.body
+        # movie_info["data_html"] = response.body
 
-        return detail_info
+        return movie_info
 
 
     def parse_celebrity(self, response):
